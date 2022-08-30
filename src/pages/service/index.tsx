@@ -17,7 +17,7 @@ export const Service: React.FC = () => (
     </Flex>
     <Flex
       alignItems="center"
-      justifyContent="center"
+      justifyContent="flex-end"
     >
       <NewService />
     </Flex>
