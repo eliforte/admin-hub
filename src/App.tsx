@@ -3,14 +3,14 @@ import { ChakraProvider } from '@chakra-ui/react';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import theme from './styles';
 import { Login } from './pages/login';
-import { Home } from './pages/home';
+import { Service } from './pages/service';
 
 export const App = () => (
   <ChakraProvider theme={theme}>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/home/servicos" element={<Service />} />
       </Routes>
     </BrowserRouter>
   </ChakraProvider>

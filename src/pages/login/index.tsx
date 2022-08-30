@@ -30,7 +30,7 @@ export const Login: React.FC = () => {
       const response = await api.post('/login', { ...loginInfo });
       sessionStorage.setItem('user', JSON.stringify(response.data));
       setLoading(false);
-      Navigate('/home');
+      Navigate('/home/servicos');
     } catch (err) {
       if (err instanceof AxiosError) {
         setLoading(false);
