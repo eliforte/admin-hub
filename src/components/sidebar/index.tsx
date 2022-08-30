@@ -51,21 +51,21 @@ export const Sidebar: React.FC = () => {
               <Button
                 leftIcon={<List />}
                 variant="link"
-                onClick={() => Navigate('/servicos')}
+                onClick={() => Navigate('/home/servicos')}
               >
                 Serviços
               </Button>
               <Button
                 leftIcon={<Assessment />}
                 variant="link"
-                onClick={() => Navigate('/faturamento')}
+                onClick={() => Navigate('/home/faturamento')}
               >
                 Faturamentos
               </Button>
               <Button
                 leftIcon={<Settings />}
                 variant="link"
-                onClick={() => Navigate('/detalhes')}
+                onClick={() => Navigate('/home/detalhes')}
               >
                 Detalhes
               </Button>
