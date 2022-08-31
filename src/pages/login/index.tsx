@@ -1,10 +1,7 @@
 import React from 'react';
 import { AxiosError } from 'axios';
 import {
-  Button,
   Center,
-  Text,
-  Spinner,
   useToast,
   InputGroup,
   Input,
@@ -12,6 +9,7 @@ import {
   Flex,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
+import { SubmitButton } from '../../components/submitButton';
 import api from '../../services/api';
 
 export const Login: React.FC = () => {
@@ -94,22 +92,11 @@ export const Login: React.FC = () => {
               type="password"
               onChange={(e) => setLoginInfo({ ...loginInfo, password: e.target.value })}
             />
-            <Button disabled={loading} border="1px solid #2B6CB0" color="#2B6CB0" type="submit">
-              {
-                loading
-                  ? (
-                    <Text>
-                      Carregando...
-                      <Spinner
-                        size="sm"
-                        emptyColor="gray.200"
-                        color="blue.500"
-                      />
-                    </Text>
-                  )
-                  : 'Entrar'
-              }
-            </Button>
+            <SubmitButton
+              loading={loading}
+              initialText="Entrar"
+              loadingText="Entrando"
+            />
           </InputGroup>
         </form>
       </Center>

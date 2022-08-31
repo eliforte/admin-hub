@@ -2,11 +2,7 @@ import React from 'react';
 import { AxiosError } from 'axios';
 import {
   Input,
-  Text,
-  Spinner,
-  Select,
   useToast,
-  Button,
   FormLabel,
   Tag,
   InputGroup,
@@ -19,19 +15,17 @@ import {
   AccordionPanel,
 } from '@chakra-ui/react';
 import { Add } from '@mui/icons-material/';
+import { CustomSelect } from '../customSelect';
+import { SubmitButton } from '../submitButton';
+import { IService } from './interface';
+import {
+  paymentDaysOptions,
+  formOfPaymentOptions,
+  paymentMethodsOptions,
+  quantityInstallmentsOptions,
+  ShowInstallmentsDetails,
+} from './utils';
 import api from '../../services/api';
-
-interface IService {
-  type: string;
-  pacient_fullname: string;
-  plan: string;
-  quantity_installments: number;
-  total: number;
-  quantity_installments_paid: number;
-  payment_day: number | null;
-  last_payment: Date | null;
-  next_payment: Date | null;
-}
 
 export const NewService: React.FC = () => {
   const [loading, setLoading] = React.useState(false);
@@ -39,17 +33,18 @@ export const NewService: React.FC = () => {
     type: '',
     pacient_fullname: '',
     plan: '',
-    quantity_installments: 2,
     total: 0,
     quantity_installments_paid: 0,
-    payment_day: 5,
     last_payment: null,
     next_payment: null,
   });
   const [paymentMethod, setPaymentMethod] = React.useState('Cartão de crédito');
   const [formOfPayment, setFormOfPayment] = React.useState('À vista');
+  const [paymentDay, setPaymentDay] = React.useState(5);
+  const [quantityInstallments, setQuantityInstallments] = React.useState(2);
   const [installmentValue, setInstallmentValue] = React.useState(0);
   const [totalForm, setTotalForm] = React.useState(0);
+  const qntInstallmentsOptions = quantityInstallmentsOptions();
   const toast = useToast();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -89,27 +84,9 @@ export const NewService: React.FC = () => {
     }
   };
 
-  const paymentMethods: { [key: string]: string; }[] = [
-    { value: 'Cartão de crédito', label: 'Cartão de crédito' },
-    { value: 'Cartão de débito', label: 'Cartão de débito' },
-    { value: 'Em dinheiro', label: 'Em dinheiro' },
-  ];
-
-  const formOfPaymentOptions: { [key: string]: string; }[] = [
-    { value: 'À vista', label: 'À vista' },
-    { value: 'Parcelamento', label: 'Parcelamento' },
-  ];
-
-  const paymentDays = [5, 8, 15, 18];
-
-  const quantityInstallments = (): number[] => {
-    const newQuantity = Array.from({ length: 12 }, (_, index) => index + 1);
-    return newQuantity;
-  };
-
   const calculateInstallmentValue = () => {
-    const fees = totalForm * 0.03 * service.quantity_installments;
-    const result = Number(((fees + totalForm) / service.quantity_installments).toFixed(2));
+    const fees = totalForm * 0.03 * quantityInstallments;
+    const result = Number(((fees + totalForm) / quantityInstallments).toFixed(2));
     setInstallmentValue(result);
     return result;
   };
@@ -120,7 +97,7 @@ export const NewService: React.FC = () => {
       && formOfPayment === 'Parcelamento'
       && totalForm > 0
     ) {
-      const priceWithFees = service.quantity_installments * installmentValue;
+      const priceWithFees = quantityInstallments * installmentValue;
       setService({ ...service, total: priceWithFees });
     } else {
       setService({ ...service, total: totalForm });
@@ -133,10 +110,11 @@ export const NewService: React.FC = () => {
     if (paymentMethod !== 'Cartão de crédito') {
       setInstallmentValue(totalForm);
       setFormOfPayment('À vista');
-      setService({ ...service, quantity_installments: 2, total: totalForm });
+      setQuantityInstallments(2);
+      setService({ ...service, total: totalForm });
     }
   }, [
-    service.quantity_installments,
+    quantityInstallments,
     paymentMethod,
     formOfPayment,
     installmentValue,
@@ -219,103 +197,42 @@ export const NewService: React.FC = () => {
                 </InputGroup>
               </GridItem>
               <GridItem>
-                <InputGroup flexDirection="column">
-                  <FormLabel>Método de pagamento</FormLabel>
-                  <Select
-                    isRequired
-                    onChange={(e) => setPaymentMethod(e.target.value)}
-                    defaultValue={paymentMethods[0].value}
-                  >
-                    {
-                      paymentMethods.map((method, index) => (
-                        <option
-                          key={index.toString() + 1}
-                          value={method.value}
-                        >
-                          {method.label}
-                        </option>
-                      ))
-                    }
-                  </Select>
-                </InputGroup>
+                <CustomSelect
+                  options={paymentMethodsOptions}
+                  state={paymentMethod}
+                  onChange={setPaymentMethod}
+                  labelText="Método de pagamento"
+                />
               </GridItem>
               <GridItem
                 display={paymentMethod === 'Cartão de crédito' ? 'block' : 'none'}
               >
-                <InputGroup flexDirection="column">
-                  <FormLabel>Forma de pagamento</FormLabel>
-                  <Select
-                    isRequired
-                    onChange={(e) => setFormOfPayment(e.target.value)}
-                    value={formOfPayment}
-                  >
-                    {
-                      formOfPaymentOptions.map((formPayment, index) => (
-                        <option
-                          key={index.toString() + 1}
-                          value={formPayment.value}
-                        >
-                          {formPayment.label}
-                        </option>
-                      ))
-                    }
-                  </Select>
-                </InputGroup>
+                <CustomSelect
+                  options={formOfPaymentOptions}
+                  state={formOfPayment}
+                  onChange={setFormOfPayment}
+                  labelText="Forma de pagamento"
+                />
               </GridItem>
               <GridItem
-                display={
-                  formOfPayment === 'Parcelamento'
-                  && paymentMethod === 'Cartão de crédito'
-                    ? 'block'
-                    : 'none'
-                }
+                display={ShowInstallmentsDetails(formOfPayment, paymentMethod)}
               >
-                <InputGroup flexDirection="column">
-                  <FormLabel>Qnt. de parcelas</FormLabel>
-                  <Select
-                    isRequired
-                    onChange={(e) => setService({
-                      ...service, quantity_installments: Number(e.target.value),
-                    })}
-                    defaultValue={service.quantity_installments}
-                  >
-                    {
-                      quantityInstallments().map((value, index) => (
-                        <option
-                          key={index.toString() + 1}
-                          value={value + 1}
-                        >
-                          { value + 1 }
-                        </option>
-                      ))
-                    }
-                  </Select>
-                </InputGroup>
+                <CustomSelect
+                  options={qntInstallmentsOptions}
+                  state={quantityInstallments}
+                  onChange={setQuantityInstallments}
+                  labelText="Qnt. de parcelas"
+                />
               </GridItem>
               <GridItem
-                display={
-                  formOfPayment === 'Parcelamento'
-                  && paymentMethod === 'Cartão de crédito'
-                    ? 'block'
-                    : 'none'
-                }
+                display={ShowInstallmentsDetails(formOfPayment, paymentMethod)}
               >
-                <InputGroup flexDirection="column">
-                  <FormLabel>Dia de vencimento</FormLabel>
-                  <Select
-                    isRequired
-                    onChange={(e) => setService({
-                      ...service, payment_day: Number(e.target.value),
-                    })}
-                    defaultValue={Number(service.payment_day)}
-                  >
-                    {
-                      paymentDays.map((day, index) => (
-                        <option key={index.toString() + 1} value={day}>{ day }</option>
-                      ))
-                    }
-                  </Select>
-                </InputGroup>
+                <CustomSelect
+                  options={paymentDaysOptions}
+                  state={paymentDay}
+                  onChange={setPaymentDay}
+                  labelText="Dia de vencimento"
+                />
               </GridItem>
               <GridItem>
                 <InputGroup flexDirection="column">
@@ -358,27 +275,11 @@ export const NewService: React.FC = () => {
                 </InputGroup>
               </GridItem>
               <GridItem>
-                <Button
-                  disabled={loading}
-                  border="1px solid #2B6CB0"
-                  color="#2B6CB0"
-                  type="submit"
-                >
-                  {
-                    loading
-                      ? (
-                        <Text>
-                          Criando...
-                          <Spinner
-                            size="sm"
-                            emptyColor="gray.200"
-                            color="blue.500"
-                          />
-                        </Text>
-                      )
-                      : 'Criar'
-                  }
-                </Button>
+                <SubmitButton
+                  loading={loading}
+                  initialText="Criar"
+                  loadingText="Criando"
+                />
               </GridItem>
             </Grid>
           </form>
