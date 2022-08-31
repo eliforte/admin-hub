@@ -132,6 +132,7 @@ export const NewService: React.FC = () => {
     formOfPayment,
     installmentValue,
     totalForm,
+    loading,
   ]);
 
   return (
@@ -141,7 +142,7 @@ export const NewService: React.FC = () => {
       borderRadius={5}
       alignItems="center"
       mr={5}
-      w="95%"
+      w="96%"
     >
       <AccordionItem borderRadius={5}>
         <h2>
@@ -170,6 +171,7 @@ export const NewService: React.FC = () => {
                     maxWidth={370}
                     placeholder="Ex: Miguel Fernandez Viera"
                     type="text"
+                    value={service.pacient_fullname}
                     onChange={(e) => setService({ ...service, pacient_fullname: e.target.value })}
                   />
                 </InputGroup>
@@ -182,6 +184,7 @@ export const NewService: React.FC = () => {
                     bg="gray.100"
                     placeholder="Ex: Extração de siso"
                     type="text"
+                    value={service.type}
                     onChange={(e) => setService({ ...service, type: e.target.value })}
                   />
                 </InputGroup>
@@ -194,6 +197,7 @@ export const NewService: React.FC = () => {
                     bg="gray.100"
                     placeholder="Ex: 199.50"
                     type="number"
+                    value={totalForm}
                     onChange={(e) => setTotalForm(Number(e.target.value))}
                   />
                 </InputGroup>
@@ -206,6 +210,7 @@ export const NewService: React.FC = () => {
                     bg="gray.100"
                     placeholder="Ex: Odonto Care Plus"
                     type="text"
+                    value={service.plan}
                     onChange={(e) => setService({ ...service, plan: e.target.value })}
                   />
                 </InputGroup>
@@ -256,7 +261,7 @@ export const NewService: React.FC = () => {
                     bg="gray.100"
                     placeholder="Ex: 05/05/2022"
                     type="date"
-                    onChange={(e) => setService({ ...service, last_payment: e.target.valueAsDate })}
+                    onChange={(e) => setService({ ...service, last_payment: e.target.value })}
                   />
                 </InputGroup>
               </GridItem>

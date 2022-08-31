@@ -17,7 +17,6 @@ export const CustomSelect: React.FC<ICustomSelect> = ({
     <Select
       isRequired
       onChange={(e) => onChange(e.target.value)}
-      defaultValue={options[0]}
       value={state}
     >
       {
