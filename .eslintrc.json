@@ -59,6 +59,7 @@
       "react/jsx-props-no-spreading": "off",
       "prefer-const": "off",
       "import/prefer-default-export": "off",
-      "no-useless-escape": "off"
+      "no-useless-escape": "off",
+      "no-unused-expressions": "off"
   }
 }
