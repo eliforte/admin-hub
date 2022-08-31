@@ -27,17 +27,19 @@ import {
 } from './utils';
 import api from '../../services/api';
 
+const initalStateService = {
+  type: '',
+  pacient_fullname: '',
+  plan: '',
+  total: 0,
+  quantity_installments_paid: 0,
+  last_payment: null,
+  next_payment: null,
+};
+
 export const NewService: React.FC = () => {
   const [loading, setLoading] = React.useState(false);
-  const [service, setService] = React.useState<IService>({
-    type: '',
-    pacient_fullname: '',
-    plan: '',
-    total: 0,
-    quantity_installments_paid: 0,
-    last_payment: null,
-    next_payment: null,
-  });
+  const [service, setService] = React.useState<IService>(initalStateService);
   const [paymentMethod, setPaymentMethod] = React.useState('Cartão de crédito');
   const [formOfPayment, setFormOfPayment] = React.useState('À vista');
   const [paymentDay, setPaymentDay] = React.useState(5);
@@ -51,15 +53,26 @@ export const NewService: React.FC = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const token = JSON.parse(String(sessionStorage.getItem('user')));
+      const user = JSON.parse(String(sessionStorage.getItem('user')));
       await api.post('/voucher', {
         ...service,
         payment_method: paymentMethod,
         form_of_payment: formOfPayment,
+        payment_day: paymentDay,
         installment_value: installmentValue,
-      }, { headers: { Authorization: `Bearer ${token}` } });
+      }, { headers: { Authorization: `Bearer ${user.token}` } });
+      setTotalForm(0);
+      setService(initalStateService);
       setLoading(false);
+      toast({
+        position: 'top',
+        title: 'Serviço registrado!',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      });
     } catch (err) {
+      console.log(err);
       if (err instanceof AxiosError) {
         setLoading(false);
         return toast({
@@ -80,7 +93,6 @@ export const NewService: React.FC = () => {
         duration: 3000,
         isClosable: true,
       });
-      console.log(err);
     }
   };
 
@@ -98,7 +110,7 @@ export const NewService: React.FC = () => {
       && totalForm > 0
     ) {
       const priceWithFees = quantityInstallments * installmentValue;
-      setService({ ...service, total: priceWithFees });
+      setService({ ...service, total: Number((priceWithFees.toFixed(2))) });
     } else {
       setService({ ...service, total: totalForm });
     }
