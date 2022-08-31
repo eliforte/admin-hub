@@ -17,7 +17,7 @@ export const Navbar: React.FC = () => {
       backgroundColor="whitesmoke"
       p={15}
       borderRadius={5}
-      m={2}
+      m={5}
     >
       <Button
         variant="link"

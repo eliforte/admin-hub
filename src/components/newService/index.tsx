@@ -61,8 +61,6 @@ export const NewService: React.FC = () => {
         payment_day: paymentDay,
         installment_value: installmentValue,
       }, { headers: { Authorization: `Bearer ${user.token}` } });
-      setTotalForm(0);
-      setService(initalStateService);
       setLoading(false);
       toast({
         position: 'top',
@@ -71,6 +69,8 @@ export const NewService: React.FC = () => {
         duration: 3000,
         isClosable: true,
       });
+      setTotalForm(0);
+      setService({ ...initalStateService });
     } catch (err) {
       console.log(err);
       if (err instanceof AxiosError) {
@@ -121,6 +121,7 @@ export const NewService: React.FC = () => {
     formOfPayment === 'Parcelamento' && calculateInstallmentValue();
     if (paymentMethod !== 'Cartão de crédito') {
       setInstallmentValue(totalForm);
+      setPaymentDay(0);
       setFormOfPayment('À vista');
       setQuantityInstallments(2);
       setService({ ...service, total: totalForm });
@@ -140,6 +141,7 @@ export const NewService: React.FC = () => {
       borderRadius={5}
       alignItems="center"
       mr={5}
+      w="95%"
     >
       <AccordionItem borderRadius={5}>
         <h2>
