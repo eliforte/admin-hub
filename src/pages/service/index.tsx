@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Stack,
-  Divider,
   Center,
 } from '@chakra-ui/react';
 import { Sidebar } from '../../components/sidebar';
@@ -13,16 +12,14 @@ import { List } from '../../components/list';
 export const Service: React.FC = () => (
   <Stack>
     <Center
+      backgroundColor="whitesmoke"
       justifyContent={['start', 'start', 'space-between']}
     >
       <Sidebar />
       <Title />
       <Navbar />
     </Center>
-    <Center h="50px">
-      <Divider w="96%" alignSelf="center" />
-    </Center>
-    <Center justifyContent="flex-end">
+    <Center justifyContent="center">
       <NewService />
     </Center>
     <Center>

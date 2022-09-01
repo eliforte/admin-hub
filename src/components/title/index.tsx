@@ -14,7 +14,7 @@ export const Title: React.FC = () => {
         _hover={{ bg: 'transparent' }}
         onClick={() => Navigate('/home/servicos')}
       >
-        <Heading color="white">Admin Hub</Heading>
+        <Heading color="#718096">Admin Hub</Heading>
       </Button>
     </Box>
   );

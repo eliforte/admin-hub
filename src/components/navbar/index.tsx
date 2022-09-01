@@ -12,27 +12,31 @@ export const Navbar: React.FC = () => {
     <Flex
       display={['none', 'none', 'flex']}
       flexDirection="row"
-      gap={5}
+      gap={1}
       alignItems="center"
       backgroundColor="whitesmoke"
-      p={15}
       borderRadius={5}
       m={5}
-      boxShadow="0px 5px 15px 5px rgba(0,0,0,0.54)"
     >
       <Button
+        p="10px"
+        border="1px solid #00000029"
         variant="link"
         onClick={() => Navigate('/home/servicos')}
       >
         Serviços
       </Button>
       <Button
+        p="10px"
+        border="1px solid #00000029"
         variant="link"
         onClick={() => Navigate('/home/faturamento')}
       >
         Faturamentos
       </Button>
       <Button
+        p="10px"
+        border="1px solid #00000029"
         variant="link"
         onClick={() => Navigate('/home/detalhes')}
       >
