@@ -6,7 +6,7 @@ import {
   Text,
   Heading,
 } from '@chakra-ui/react';
-import { IDataProps } from '../../interface';
+import { IDataProps } from '../../interfaces';
 import { calculateStatus } from './utils';
 
 export const ItemOfList: React.FC<IDataProps> = (props) => {
@@ -44,7 +44,7 @@ export const ItemOfList: React.FC<IDataProps> = (props) => {
         border="1px solid #00000029"
       >
         <Heading as="h4" size="sm">Paciente:</Heading>
-        <Text mt={5}>{ pacient_fullname }</Text>
+        <Text color="gray.500" mt={5}>{ pacient_fullname }</Text>
       </GridItem>
       <GridItem
         w="100%"
@@ -54,7 +54,7 @@ export const ItemOfList: React.FC<IDataProps> = (props) => {
         border="1px solid #00000029"
       >
         <Heading as="h4" size="sm">Serviço:</Heading>
-        <Text mt={5}>{ type }</Text>
+        <Text color="gray.500" mt={5}>{ type }</Text>
       </GridItem>
       <GridItem
         w="100%"
@@ -83,7 +83,7 @@ export const ItemOfList: React.FC<IDataProps> = (props) => {
         border="1px solid #00000029"
       >
         <Heading as="h4" size="sm">Método de pagamento:</Heading>
-        <Text mt={5}>{ payment_method }</Text>
+        <Text color="gray.500" mt={5}>{ payment_method }</Text>
       </GridItem>
       <GridItem
         w="100%"
@@ -93,7 +93,7 @@ export const ItemOfList: React.FC<IDataProps> = (props) => {
         border="1px solid #00000029"
       >
         <Heading as="h4" size="sm">Forma de pagamento:</Heading>
-        <Text mt={5}>{ form_of_payment }</Text>
+        <Text color="gray.500" mt={5}>{ form_of_payment }</Text>
       </GridItem>
       <GridItem
         w="100%"
@@ -104,7 +104,7 @@ export const ItemOfList: React.FC<IDataProps> = (props) => {
         display={form_of_payment === 'Parcelamento' ? 'block' : 'none'}
       >
         <Heading as="h4" size="sm">Próximo pagamento:</Heading>
-        <Text mt={5}>{ new Date(String(next_payment)).toLocaleDateString('pt-BR') }</Text>
+        <Text color="gray.500" mt={5}>{ new Date(String(next_payment)).toLocaleDateString('pt-BR') }</Text>
       </GridItem>
       <GridItem
         w="100%"
@@ -115,7 +115,7 @@ export const ItemOfList: React.FC<IDataProps> = (props) => {
         display={form_of_payment === 'Parcelamento' ? 'block' : 'none'}
       >
         <Heading as="h4" size="sm">Qnt. de parcelas:</Heading>
-        <Text mt={5}>{ quantity_installments }</Text>
+        <Text color="gray.500" mt={5}>{ quantity_installments }</Text>
       </GridItem>
       <GridItem
         w="100%"
@@ -126,7 +126,7 @@ export const ItemOfList: React.FC<IDataProps> = (props) => {
         display={form_of_payment === 'Parcelamento' ? 'block' : 'none'}
       >
         <Heading as="h4" size="sm">Qnt. de parcelas pagas:</Heading>
-        <Text mt={5}>{ quantity_installments_paid }</Text>
+        <Text color="gray.500" mt={5}>{ quantity_installments_paid }</Text>
       </GridItem>
       <GridItem
         w="100%"

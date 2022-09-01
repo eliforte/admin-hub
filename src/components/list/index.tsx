@@ -8,7 +8,7 @@ import {
 } from '@chakra-ui/react';
 import { Loading } from '../loading';
 import { ItemOfList } from '../itemOfList';
-import { IDataProps } from '../../interface';
+import { IDataProps } from '../../interfaces';
 import api from '../../services/api';
 
 export const List: React.FC = () => {
