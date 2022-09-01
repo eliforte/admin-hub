@@ -55,18 +55,34 @@ export const List: React.FC = () => {
   if (loading) return <Loading />;
 
   return (
-    <Center flexDirection="column" maxW="80%">
+    <Center
+      backgroundColor="whiteAlpha.800"
+      flexDirection="column"
+      maxW="100vw"
+      p={5}
+    >
+      <Heading m={5} color="#213b62">Atendimentos</Heading>
       {
         data?.map((service, index) => (
-          <Box>
+          <Box
+            maxW="850px"
+            justifyContent="center"
+            flexDirection="column"
+            backgroundColor="whitesmoke"
+            border="1px solid #00000029"
+            p={5}
+            m={2}
+            borderRadius={5}
+          >
             <Heading
               as="h3"
               size="md"
               maxW="50px"
-              mb={5}
+              mb={2}
               borderRadius={5}
               backgroundColor="whitesmoke"
               p={1}
+              color="#213b62"
             >
               { `# ${index + 1}`}
             </Heading>

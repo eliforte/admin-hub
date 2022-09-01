@@ -12,7 +12,14 @@ export const SubmitButton: React.FC<ISubmitButton> = ({
   initialText,
   loadingText,
 }) => (
-  <Button disabled={loading} border="1px solid #2B6CB0" color="#2B6CB0" type="submit">
+  <Button
+    disabled={loading}
+    border="1px solid #2B6CB0"
+    backgroundColor="#213b62"
+    color="whitesmoke"
+    type="submit"
+    _hover={{ backgroundColor: '#0d1d34' }}
+  >
     {
       loading
         ? (
