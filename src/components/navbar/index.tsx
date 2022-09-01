@@ -18,6 +18,7 @@ export const Navbar: React.FC = () => {
       p={15}
       borderRadius={5}
       m={5}
+      boxShadow="0px 5px 15px 5px rgba(0,0,0,0.54)"
     >
       <Button
         variant="link"

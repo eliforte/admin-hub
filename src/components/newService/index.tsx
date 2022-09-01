@@ -72,7 +72,6 @@ export const NewService: React.FC = () => {
       setTotalForm(0);
       setService({ ...initalStateService });
     } catch (err) {
-      console.log(err);
       if (err instanceof AxiosError) {
         setLoading(false);
         return toast({
@@ -93,6 +92,7 @@ export const NewService: React.FC = () => {
         duration: 3000,
         isClosable: true,
       });
+      console.log(err);
     }
   };
 
@@ -141,8 +141,9 @@ export const NewService: React.FC = () => {
       backgroundColor="whitesmoke"
       borderRadius={5}
       alignItems="center"
-      mr={5}
-      w="96%"
+      m="0 20px"
+      maxW="80%"
+      boxShadow="0px 5px 15px 5px rgba(0,0,0,0.54)"
     >
       <AccordionItem borderRadius={5}>
         <h2>
