@@ -24,7 +24,7 @@ export const Navbar: React.FC = () => {
         variant="link"
         onClick={() => Navigate('/home/servicos')}
       >
-        Serviços
+        Atendimentos
       </Button>
       <Button
         p="10px"
