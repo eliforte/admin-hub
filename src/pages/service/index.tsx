@@ -19,13 +19,11 @@ export const Service: React.FC = () => (
       <Title />
       <Navbar />
     </Center>
-    <Center
-      justifyContent="flex-end"
-    >
-      <NewService />
-    </Center>
     <Center h="50px">
       <Divider w="96%" alignSelf="center" />
+    </Center>
+    <Center justifyContent="flex-end">
+      <NewService />
     </Center>
     <Center>
       <List />

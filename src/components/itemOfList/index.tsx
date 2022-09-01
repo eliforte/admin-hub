@@ -6,7 +6,7 @@ import {
   Text,
   Heading,
 } from '@chakra-ui/react';
-import { IDataProps } from './interface';
+import { IDataProps } from '../../interface';
 import { calculateStatus } from './utils';
 
 export const ItemOfList: React.FC<IDataProps> = (props) => {
@@ -35,7 +35,6 @@ export const ItemOfList: React.FC<IDataProps> = (props) => {
       backgroundColor="whitesmoke"
       p={5}
       mb={7}
-      boxShadow="0px 5px 15px 5px rgba(0,0,0,0.54)"
     >
       <GridItem
         w="100%"

@@ -8,7 +8,7 @@ import {
 } from '@chakra-ui/react';
 import { Loading } from '../loading';
 import { ItemOfList } from '../itemOfList';
-import { IDataProps } from './interface';
+import { IDataProps } from '../../interface';
 import api from '../../services/api';
 
 export const List: React.FC = () => {
@@ -66,7 +66,6 @@ export const List: React.FC = () => {
               mb={5}
               borderRadius={5}
               backgroundColor="whitesmoke"
-              boxShadow="0px 5px 15px 5px rgba(0,0,0,0.54)"
               p={1}
             >
               { `# ${index + 1}`}

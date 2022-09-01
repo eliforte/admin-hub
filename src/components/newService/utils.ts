@@ -19,5 +19,3 @@ export const ShowInstallmentsDetails = (formOfPayment: string, paymentMethod: st
 
   return display;
 };
-
-// Qnt. de parcelas

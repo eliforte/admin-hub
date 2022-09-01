@@ -17,7 +17,7 @@ import {
 import { Add } from '@mui/icons-material/';
 import { CustomSelect } from '../customSelect';
 import { SubmitButton } from '../submitButton';
-import { IService } from './interface';
+import { IService } from '../../interface';
 import {
   paymentDaysOptions,
   formOfPaymentOptions,
@@ -141,9 +141,8 @@ export const NewService: React.FC = () => {
       backgroundColor="whitesmoke"
       borderRadius={5}
       alignItems="center"
-      m="0 20px"
+      m="0 20px 50px 20px"
       maxW="80%"
-      boxShadow="0px 5px 15px 5px rgba(0,0,0,0.54)"
     >
       <AccordionItem borderRadius={5}>
         <h2>

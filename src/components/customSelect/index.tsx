@@ -4,7 +4,7 @@ import {
   FormLabel,
   Select,
 } from '@chakra-ui/react';
-import { ICustomSelect } from './interface';
+import { ICustomSelect } from '../../interface';
 
 export const CustomSelect: React.FC<ICustomSelect> = ({
   onChange,
