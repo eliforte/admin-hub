@@ -8,6 +8,7 @@ import { Sidebar } from '../../components/sidebar';
 import { Title } from '../../components/title';
 import { Navbar } from '../../components/navbar';
 import { NewService } from '../../components/newService';
+import { List } from '../../components/list';
 
 export const Service: React.FC = () => (
   <Stack>
@@ -25,6 +26,9 @@ export const Service: React.FC = () => (
     </Center>
     <Center h="50px">
       <Divider w="96%" alignSelf="center" />
+    </Center>
+    <Center>
+      <List />
     </Center>
   </Stack>
 );

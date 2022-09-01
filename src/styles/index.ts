@@ -113,6 +113,8 @@ const theme = extendTheme({
       700: '#97266D',
       900: '#521B41',
     },
+    Atrasado: '#C53030',
+    Pago: '#68D391',
   },
   breackpoints: {
     sm: '30em',
