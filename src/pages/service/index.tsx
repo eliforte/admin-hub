@@ -19,11 +19,9 @@ export const Service: React.FC = () => (
       <Title />
       <Navbar />
     </Center>
-    <Center justifyContent="center">
+    <Center justifyContent="flex-end">
       <NewService />
     </Center>
-    <Center>
-      <List />
-    </Center>
+    <List />
   </Stack>
 );

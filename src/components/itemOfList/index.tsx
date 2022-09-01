@@ -43,7 +43,7 @@ export const ItemOfList: React.FC<IDataProps> = (props) => {
         h="100%"
         border="1px solid #00000029"
       >
-        <Heading as="h4" size="sm">Paciente:</Heading>
+        <Heading color="#213b62" as="h4" size="sm">Paciente:</Heading>
         <Text color="gray.500" mt={5}>{ pacient_fullname }</Text>
       </GridItem>
       <GridItem
@@ -53,7 +53,7 @@ export const ItemOfList: React.FC<IDataProps> = (props) => {
         h="100%"
         border="1px solid #00000029"
       >
-        <Heading as="h4" size="sm">Serviço:</Heading>
+        <Heading color="#213b62" as="h4" size="sm">Procedimento:</Heading>
         <Text color="gray.500" mt={5}>{ type }</Text>
       </GridItem>
       <GridItem
@@ -63,7 +63,7 @@ export const ItemOfList: React.FC<IDataProps> = (props) => {
         h="100%"
         border="1px solid #00000029"
       >
-        <Heading as="h4" size="sm">Status do pagamento:</Heading>
+        <Heading color="#213b62" as="h4" size="sm">Status do pagamento:</Heading>
         <Text
           mt={5}
           borderRadius={5}
@@ -82,7 +82,7 @@ export const ItemOfList: React.FC<IDataProps> = (props) => {
         h="100%"
         border="1px solid #00000029"
       >
-        <Heading as="h4" size="sm">Método de pagamento:</Heading>
+        <Heading color="#213b62" as="h4" size="sm">Método de pagamento:</Heading>
         <Text color="gray.500" mt={5}>{ payment_method }</Text>
       </GridItem>
       <GridItem
@@ -92,7 +92,7 @@ export const ItemOfList: React.FC<IDataProps> = (props) => {
         h="100%"
         border="1px solid #00000029"
       >
-        <Heading as="h4" size="sm">Forma de pagamento:</Heading>
+        <Heading color="#213b62" as="h4" size="sm">Forma de pagamento:</Heading>
         <Text color="gray.500" mt={5}>{ form_of_payment }</Text>
       </GridItem>
       <GridItem
@@ -103,7 +103,7 @@ export const ItemOfList: React.FC<IDataProps> = (props) => {
         border="1px solid #00000029"
         display={form_of_payment === 'Parcelamento' ? 'block' : 'none'}
       >
-        <Heading as="h4" size="sm">Próximo pagamento:</Heading>
+        <Heading color="#213b62" as="h4" size="sm">Próximo pagamento:</Heading>
         <Text color="gray.500" mt={5}>{ new Date(String(next_payment)).toLocaleDateString('pt-BR') }</Text>
       </GridItem>
       <GridItem
@@ -114,7 +114,7 @@ export const ItemOfList: React.FC<IDataProps> = (props) => {
         border="1px solid #00000029"
         display={form_of_payment === 'Parcelamento' ? 'block' : 'none'}
       >
-        <Heading as="h4" size="sm">Qnt. de parcelas:</Heading>
+        <Heading color="#213b62" as="h4" size="sm">Qnt. de parcelas:</Heading>
         <Text color="gray.500" mt={5}>{ quantity_installments }</Text>
       </GridItem>
       <GridItem
@@ -125,7 +125,7 @@ export const ItemOfList: React.FC<IDataProps> = (props) => {
         border="1px solid #00000029"
         display={form_of_payment === 'Parcelamento' ? 'block' : 'none'}
       >
-        <Heading as="h4" size="sm">Qnt. de parcelas pagas:</Heading>
+        <Heading color="#213b62" as="h4" size="sm">Qnt. de parcelas pagas:</Heading>
         <Text color="gray.500" mt={5}>{ quantity_installments_paid }</Text>
       </GridItem>
       <GridItem
@@ -136,7 +136,7 @@ export const ItemOfList: React.FC<IDataProps> = (props) => {
         border="1px solid #00000029"
         display={form_of_payment === 'Parcelamento' ? 'block' : 'none'}
       >
-        <Heading as="h4" size="sm">Valor da parcela:</Heading>
+        <Heading color="#213b62" as="h4" size="sm">Valor da parcela:</Heading>
         <Text
           maxW="100px"
           borderRadius={5}
@@ -155,7 +155,7 @@ export const ItemOfList: React.FC<IDataProps> = (props) => {
         h="100%"
         border="1px solid #00000029"
       >
-        <Heading as="h4" size="sm">Total a receber:</Heading>
+        <Heading color="#213b62" as="h4" size="sm">Total a receber:</Heading>
         <Text
           maxW="100px"
           borderRadius={5}

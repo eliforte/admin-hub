@@ -14,7 +14,6 @@ import {
   Box,
   AccordionPanel,
 } from '@chakra-ui/react';
-import { Add } from '@mui/icons-material/';
 import { CustomSelect } from '../customSelect';
 import { SubmitButton } from '../submitButton';
 import { IService } from '../../interfaces';
@@ -147,8 +146,7 @@ export const NewService: React.FC = () => {
       <AccordionItem borderRadius={5}>
         <h2>
           <AccordionButton>
-            <Add />
-            <Box flex="1" textAlign="left">
+            <Box color="#1a202c">
               Registrar novo serviço
             </Box>
           </AccordionButton>
@@ -164,7 +162,7 @@ export const NewService: React.FC = () => {
             >
               <GridItem width="100%">
                 <InputGroup flexDirection="column" justifyContent="space-between">
-                  <FormLabel>Nome do paciente</FormLabel>
+                  <FormLabel color="#1a202c">Nome do paciente</FormLabel>
                   <Input
                     isRequired
                     bg="gray.100"
@@ -178,7 +176,7 @@ export const NewService: React.FC = () => {
               </GridItem>
               <GridItem>
                 <InputGroup flexDirection="column">
-                  <FormLabel>Tipo do Atendimento</FormLabel>
+                  <FormLabel color="#1a202c">Tipo do Atendimento</FormLabel>
                   <Input
                     isRequired
                     bg="gray.100"
@@ -191,7 +189,7 @@ export const NewService: React.FC = () => {
               </GridItem>
               <GridItem>
                 <InputGroup flexDirection="column">
-                  <FormLabel>Valor</FormLabel>
+                  <FormLabel color="#1a202c">Valor</FormLabel>
                   <Input
                     isRequired
                     bg="gray.100"
@@ -204,7 +202,7 @@ export const NewService: React.FC = () => {
               </GridItem>
               <GridItem>
                 <InputGroup flexDirection="column">
-                  <FormLabel>Plano odontológico</FormLabel>
+                  <FormLabel color="#1a202c">Plano odontológico</FormLabel>
                   <Input
                     isRequired
                     bg="gray.100"
@@ -255,7 +253,7 @@ export const NewService: React.FC = () => {
               </GridItem>
               <GridItem>
                 <InputGroup flexDirection="column">
-                  <FormLabel>Data do pagamento</FormLabel>
+                  <FormLabel color="#1a202c">Data do pagamento</FormLabel>
                   <Input
                     isRequired
                     bg="gray.100"
@@ -274,7 +272,7 @@ export const NewService: React.FC = () => {
                 }
               >
                 <InputGroup flexDirection="column">
-                  <FormLabel>Valor da parcela</FormLabel>
+                  <FormLabel color="#1a202c">Valor da parcela</FormLabel>
                   <Tag
                     colorScheme="yellow"
                   >
@@ -284,7 +282,7 @@ export const NewService: React.FC = () => {
               </GridItem>
               <GridItem>
                 <InputGroup flexDirection="column">
-                  <FormLabel>Valor total</FormLabel>
+                  <FormLabel color="#1a202c">Valor total</FormLabel>
                   <Tag
                     size="lg"
                     colorScheme="green"
