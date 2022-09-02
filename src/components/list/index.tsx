@@ -8,10 +8,15 @@ import {
 } from '@chakra-ui/react';
 import { Loading } from '../loading';
 import { ItemOfList } from '../itemOfList';
+import { EmptyList } from '../emptyList';
 import { IDataProps } from '../../interfaces';
 import api from '../../services/api';
 
-export const List: React.FC = () => {
+interface ICreatedProps {
+  created: boolean;
+}
+
+export const List: React.FC<ICreatedProps> = ({ created }) => {
   const [data, setData] = React.useState<IDataProps[]>();
   const [loading, setLoading] = React.useState(false);
   const toast = useToast();
@@ -50,45 +55,45 @@ export const List: React.FC = () => {
 
   React.useEffect(() => {
     getItems();
-  }, []);
+  }, [created]);
 
   if (loading) return <Loading />;
 
   return (
     <Center
-      backgroundColor="whiteAlpha.800"
-      flexDirection="column"
+      flexDirection="column-reverse"
       maxW="100vw"
-      p={5}
+      borderRadius={5}
+      mb={10}
+      gap={5}
     >
-      <Heading m={5} color="#213b62">Atendimentos</Heading>
       {
-        data?.map((service, index) => (
-          <Box
-            maxW="850px"
-            justifyContent="center"
-            flexDirection="column"
-            backgroundColor="whitesmoke"
-            border="1px solid #00000029"
-            p={5}
-            m={2}
-            borderRadius={5}
-          >
-            <Heading
-              as="h3"
-              size="md"
-              maxW="50px"
-              mb={2}
+        !data?.length ? <EmptyList />
+          : data.map((service, index) => (
+            <Box
+              maxW="900px"
+              backgroundColor="whiteAlpha.800"
+              justifyContent="center"
+              flexDirection="column"
+              border="1px solid #00000029"
+              p={5}
               borderRadius={5}
-              backgroundColor="whitesmoke"
-              p={1}
-              color="#213b62"
             >
-              { `# ${index + 1}`}
-            </Heading>
-            <ItemOfList key={service._id} {...service} />
-          </Box>
-        ))
+              <Heading
+                as="h3"
+                size="md"
+                maxW="50px"
+                mb={2}
+                borderRadius={5}
+                backgroundColor="whitesmoke"
+                p={1}
+                color="#213b62"
+              >
+                { `# ${index + 1}`}
+              </Heading>
+              <ItemOfList key={service._id} {...service} />
+            </Box>
+          ))
       }
     </Center>
   );

@@ -14,6 +14,7 @@ import {
   Box,
   AccordionPanel,
 } from '@chakra-ui/react';
+import { MinusIcon, AddIcon } from '@chakra-ui/icons';
 import { CustomSelect } from '../customSelect';
 import { SubmitButton } from '../submitButton';
 import { IService } from '../../interfaces';
@@ -31,12 +32,18 @@ const initalStateService = {
   pacient_fullname: '',
   plan: '',
   total: 0,
-  quantity_installments_paid: 0,
+  quantity_installments_paid: 1,
   last_payment: null,
   next_payment: null,
 };
 
-export const NewService: React.FC = () => {
+interface ISetCreatedProps {
+  setCreated: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export const NewService: React.FC<ISetCreatedProps> = ({
+  setCreated,
+}) => {
   const [loading, setLoading] = React.useState(false);
   const [service, setService] = React.useState<IService>(initalStateService);
   const [paymentMethod, setPaymentMethod] = React.useState('Cartão de crédito');
@@ -59,17 +66,19 @@ export const NewService: React.FC = () => {
         form_of_payment: formOfPayment,
         payment_day: paymentDay,
         installment_value: installmentValue,
+        quantity_installments: quantityInstallments,
       }, { headers: { Authorization: `Bearer ${user.token}` } });
       setLoading(false);
       toast({
         position: 'top',
-        title: 'Serviço registrado!',
+        title: 'Atendimento registrado!',
         status: 'success',
         duration: 3000,
         isClosable: true,
       });
       setTotalForm(0);
       setService({ ...initalStateService });
+      setCreated(true);
     } catch (err) {
       if (err instanceof AxiosError) {
         setLoading(false);
@@ -117,6 +126,7 @@ export const NewService: React.FC = () => {
 
   React.useEffect(() => {
     totalForm > 0 && calculateTotal();
+    totalForm === 0 && setService({ ...service, total: 0 });
     formOfPayment === 'Parcelamento' && calculateInstallmentValue();
     if (paymentMethod !== 'Cartão de crédito') {
       setInstallmentValue(totalForm);
@@ -144,163 +154,177 @@ export const NewService: React.FC = () => {
       maxW="100%"
     >
       <AccordionItem borderRadius={5}>
-        <h2>
-          <AccordionButton>
-            <Box color="#1a202c">
-              Registrar novo serviço
-            </Box>
-          </AccordionButton>
-        </h2>
-        <AccordionPanel width="100%" borderRadius={5}>
-          <form onSubmit={(e) => handleSubmit(e)}>
-            <Grid
-              templateColumns={['repeat(1, 1fr)', 'repeat(2, 1fr)', 'repeat(4, 1fr)']}
-              gap={4}
-              w="100%"
-              alignItems="center"
-              justifyItems="start"
-            >
-              <GridItem width="100%">
-                <InputGroup flexDirection="column" justifyContent="space-between">
-                  <FormLabel color="#1a202c">Nome do paciente</FormLabel>
-                  <Input
-                    isRequired
-                    bg="gray.100"
-                    maxWidth={370}
-                    placeholder="Ex: Miguel Fernandez Viera"
-                    type="text"
-                    value={service.pacient_fullname}
-                    onChange={(e) => setService({ ...service, pacient_fullname: e.target.value })}
-                  />
-                </InputGroup>
-              </GridItem>
-              <GridItem>
-                <InputGroup flexDirection="column">
-                  <FormLabel color="#1a202c">Tipo do Atendimento</FormLabel>
-                  <Input
-                    isRequired
-                    bg="gray.100"
-                    placeholder="Ex: Extração de siso"
-                    type="text"
-                    value={service.type}
-                    onChange={(e) => setService({ ...service, type: e.target.value })}
-                  />
-                </InputGroup>
-              </GridItem>
-              <GridItem>
-                <InputGroup flexDirection="column">
-                  <FormLabel color="#1a202c">Valor</FormLabel>
-                  <Input
-                    isRequired
-                    bg="gray.100"
-                    placeholder="Ex: 199.50"
-                    type="number"
-                    value={totalForm}
-                    onChange={(e) => setTotalForm(Number(e.target.value))}
-                  />
-                </InputGroup>
-              </GridItem>
-              <GridItem>
-                <InputGroup flexDirection="column">
-                  <FormLabel color="#1a202c">Plano odontológico</FormLabel>
-                  <Input
-                    isRequired
-                    bg="gray.100"
-                    placeholder="Ex: Odonto Care Plus"
-                    type="text"
-                    value={service.plan}
-                    onChange={(e) => setService({ ...service, plan: e.target.value })}
-                  />
-                </InputGroup>
-              </GridItem>
-              <GridItem>
-                <CustomSelect
-                  options={paymentMethodsOptions}
-                  state={paymentMethod}
-                  onChange={setPaymentMethod}
-                  labelText="Método de pagamento"
-                />
-              </GridItem>
-              <GridItem
-                display={paymentMethod === 'Cartão de crédito' ? 'block' : 'none'}
-              >
-                <CustomSelect
-                  options={formOfPaymentOptions}
-                  state={formOfPayment}
-                  onChange={setFormOfPayment}
-                  labelText="Forma de pagamento"
-                />
-              </GridItem>
-              <GridItem
-                display={ShowInstallmentsDetails(formOfPayment, paymentMethod)}
-              >
-                <CustomSelect
-                  options={qntInstallmentsOptions}
-                  state={quantityInstallments}
-                  onChange={setQuantityInstallments}
-                  labelText="Qnt. de parcelas"
-                />
-              </GridItem>
-              <GridItem
-                display={ShowInstallmentsDetails(formOfPayment, paymentMethod)}
-              >
-                <CustomSelect
-                  options={paymentDaysOptions}
-                  state={paymentDay}
-                  onChange={setPaymentDay}
-                  labelText="Dia de vencimento"
-                />
-              </GridItem>
-              <GridItem>
-                <InputGroup flexDirection="column">
-                  <FormLabel color="#1a202c">Data do pagamento</FormLabel>
-                  <Input
-                    isRequired
-                    bg="gray.100"
-                    placeholder="Ex: 05/05/2022"
-                    type="date"
-                    onChange={(e) => setService({ ...service, last_payment: e.target.value })}
-                  />
-                </InputGroup>
-              </GridItem>
-              <GridItem
-                display={
-                  formOfPayment === 'Parcelamento'
-                    && totalForm > 0
-                    ? 'block'
-                    : 'none'
-                }
-              >
-                <InputGroup flexDirection="column">
-                  <FormLabel color="#1a202c">Valor da parcela</FormLabel>
-                  <Tag
-                    colorScheme="yellow"
+        {
+          ({ isExpanded }) => (
+            <>
+              <h2>
+                <AccordionButton justifyContent="space-between">
+                  <Box mr="15px" color="#1a202c">
+                    Registrar novo atendimento
+                  </Box>
+                  {isExpanded ? (
+                    <MinusIcon fontSize="12px" />
+                  ) : (
+                    <AddIcon fontSize="12px" />
+                  )}
+                </AccordionButton>
+              </h2>
+              <AccordionPanel width="100%" borderRadius={5}>
+                <form onSubmit={(e) => handleSubmit(e)}>
+                  <Grid
+                    templateColumns={['repeat(1, 1fr)', 'repeat(2, 1fr)', 'repeat(4, 1fr)']}
+                    gap={4}
+                    w="100%"
+                    alignItems="center"
+                    justifyItems="start"
                   >
-                    { `R$ ${String(installmentValue).replace('.', ',')}` }
-                  </Tag>
-                </InputGroup>
-              </GridItem>
-              <GridItem>
-                <InputGroup flexDirection="column">
-                  <FormLabel color="#1a202c">Valor total</FormLabel>
-                  <Tag
-                    size="lg"
-                    colorScheme="green"
-                  >
-                    { `R$ ${String((service.total).toFixed(2)).replace('.', ',')}` }
-                  </Tag>
-                </InputGroup>
-              </GridItem>
-              <GridItem>
-                <SubmitButton
-                  loading={loading}
-                  initialText="Criar"
-                  loadingText="Criando"
-                />
-              </GridItem>
-            </Grid>
-          </form>
-        </AccordionPanel>
+                    <GridItem width="100%">
+                      <InputGroup flexDirection="column" justifyContent="space-between">
+                        <FormLabel color="#1a202c">Nome do paciente</FormLabel>
+                        <Input
+                          isRequired
+                          bg="gray.100"
+                          maxWidth={370}
+                          placeholder="Ex: Miguel Fernandez Viera"
+                          type="text"
+                          value={service.pacient_fullname}
+                          onChange={
+                            (e) => setService({ ...service, pacient_fullname: e.target.value })
+                          }
+                        />
+                      </InputGroup>
+                    </GridItem>
+                    <GridItem>
+                      <InputGroup flexDirection="column">
+                        <FormLabel color="#1a202c">Tipo do Atendimento</FormLabel>
+                        <Input
+                          isRequired
+                          bg="gray.100"
+                          placeholder="Ex: Extração de siso"
+                          type="text"
+                          value={service.type}
+                          onChange={(e) => setService({ ...service, type: e.target.value })}
+                        />
+                      </InputGroup>
+                    </GridItem>
+                    <GridItem>
+                      <InputGroup flexDirection="column">
+                        <FormLabel color="#1a202c">Valor</FormLabel>
+                        <Input
+                          isRequired
+                          bg="gray.100"
+                          placeholder="Ex: 199.50"
+                          type="string"
+                          value={totalForm}
+                          onChange={(e) => setTotalForm(Number(e.target.value))}
+                        />
+                      </InputGroup>
+                    </GridItem>
+                    <GridItem>
+                      <InputGroup flexDirection="column">
+                        <FormLabel color="#1a202c">Plano odontológico</FormLabel>
+                        <Input
+                          isRequired
+                          bg="gray.100"
+                          placeholder="Ex: Odonto Care Plus"
+                          type="text"
+                          value={service.plan}
+                          onChange={(e) => setService({ ...service, plan: e.target.value })}
+                        />
+                      </InputGroup>
+                    </GridItem>
+                    <GridItem>
+                      <CustomSelect
+                        options={paymentMethodsOptions}
+                        state={paymentMethod}
+                        onChange={setPaymentMethod}
+                        labelText="Método de pagamento"
+                      />
+                    </GridItem>
+                    <GridItem
+                      display={paymentMethod === 'Cartão de crédito' ? 'block' : 'none'}
+                    >
+                      <CustomSelect
+                        options={formOfPaymentOptions}
+                        state={formOfPayment}
+                        onChange={setFormOfPayment}
+                        labelText="Forma de pagamento"
+                      />
+                    </GridItem>
+                    <GridItem
+                      display={ShowInstallmentsDetails(formOfPayment, paymentMethod)}
+                    >
+                      <CustomSelect
+                        options={qntInstallmentsOptions}
+                        state={quantityInstallments}
+                        onChange={setQuantityInstallments}
+                        labelText="Qnt. de parcelas"
+                      />
+                    </GridItem>
+                    <GridItem
+                      display={ShowInstallmentsDetails(formOfPayment, paymentMethod)}
+                    >
+                      <CustomSelect
+                        options={paymentDaysOptions}
+                        state={paymentDay}
+                        onChange={setPaymentDay}
+                        labelText="Dia de vencimento"
+                      />
+                    </GridItem>
+                    <GridItem>
+                      <InputGroup flexDirection="column">
+                        <FormLabel color="#1a202c">Data do pagamento</FormLabel>
+                        <Input
+                          isRequired
+                          bg="gray.100"
+                          placeholder="Ex: 05/05/2022"
+                          type="date"
+                          value={String(service.last_payment)}
+                          onChange={(e) => setService({ ...service, last_payment: e.target.value })}
+                        />
+                      </InputGroup>
+                    </GridItem>
+                    <GridItem
+                      display={
+                        formOfPayment === 'Parcelamento'
+                          && totalForm > 0
+                          ? 'block'
+                          : 'none'
+                      }
+                    >
+                      <InputGroup flexDirection="column">
+                        <FormLabel color="#1a202c">Valor da parcela</FormLabel>
+                        <Tag
+                          colorScheme="yellow"
+                        >
+                          { `R$ ${String(installmentValue).replace('.', ',')}` }
+                        </Tag>
+                      </InputGroup>
+                    </GridItem>
+                    <GridItem>
+                      <InputGroup flexDirection="column">
+                        <FormLabel color="#1a202c">Valor total</FormLabel>
+                        <Tag
+                          size="lg"
+                          colorScheme="green"
+                        >
+                          { `R$ ${String((service.total).toFixed(2)).replace('.', ',')}` }
+                        </Tag>
+                      </InputGroup>
+                    </GridItem>
+                    <GridItem>
+                      <SubmitButton
+                        loading={loading}
+                        initialText="Criar"
+                        loadingText="Criando"
+                      />
+                    </GridItem>
+                  </Grid>
+                </form>
+              </AccordionPanel>
+            </>
+          )
+        }
       </AccordionItem>
     </Accordion>
   );
