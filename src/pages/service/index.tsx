@@ -4,9 +4,7 @@ import {
   Center,
   Heading,
 } from '@chakra-ui/react';
-import { Sidebar } from '../../components/sidebar';
-import { Title } from '../../components/title';
-import { Navbar } from '../../components/navbar';
+import { CustomHeading } from '../../components/customHeading';
 import { NewService } from '../../components/newService';
 import { List } from '../../components/list';
 
@@ -15,14 +13,7 @@ export const Service: React.FC = () => {
 
   return (
     <Stack>
-      <Center
-        backgroundColor="whitesmoke"
-        justifyContent={['start', 'start', 'space-between']}
-      >
-        <Sidebar />
-        <Title />
-        <Navbar />
-      </Center>
+      <CustomHeading />
       <Center justifyContent="flex-end">
         <NewService setCreated={setCreated} />
       </Center>
