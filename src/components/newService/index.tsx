@@ -180,7 +180,7 @@ export const NewService: React.FC<ISetCreatedProps> = ({
                   >
                     <GridItem width="100%">
                       <InputGroup flexDirection="column" justifyContent="space-between">
-                        <FormLabel color="#1a202c">Nome do paciente</FormLabel>
+                        <FormLabel color="#1a202c">Nome do paciente: *</FormLabel>
                         <Input
                           isRequired
                           bg="gray.100"
@@ -196,7 +196,7 @@ export const NewService: React.FC<ISetCreatedProps> = ({
                     </GridItem>
                     <GridItem>
                       <InputGroup flexDirection="column">
-                        <FormLabel color="#1a202c">Tipo do Atendimento</FormLabel>
+                        <FormLabel color="#1a202c">Tipo do Atendimento: *</FormLabel>
                         <Input
                           isRequired
                           bg="gray.100"
@@ -209,7 +209,7 @@ export const NewService: React.FC<ISetCreatedProps> = ({
                     </GridItem>
                     <GridItem>
                       <InputGroup flexDirection="column">
-                        <FormLabel color="#1a202c">Valor</FormLabel>
+                        <FormLabel color="#1a202c">Valor: *</FormLabel>
                         <Input
                           isRequired
                           bg="gray.100"
@@ -222,7 +222,7 @@ export const NewService: React.FC<ISetCreatedProps> = ({
                     </GridItem>
                     <GridItem>
                       <InputGroup flexDirection="column">
-                        <FormLabel color="#1a202c">Plano odontológico</FormLabel>
+                        <FormLabel color="#1a202c">Plano odontológico: *</FormLabel>
                         <Input
                           isRequired
                           bg="gray.100"
@@ -238,7 +238,7 @@ export const NewService: React.FC<ISetCreatedProps> = ({
                         options={paymentMethodsOptions}
                         state={paymentMethod}
                         onChange={setPaymentMethod}
-                        labelText="Método de pagamento"
+                        labelText="Método de pagamento: *"
                       />
                     </GridItem>
                     <GridItem
@@ -248,7 +248,7 @@ export const NewService: React.FC<ISetCreatedProps> = ({
                         options={formOfPaymentOptions}
                         state={formOfPayment}
                         onChange={setFormOfPayment}
-                        labelText="Forma de pagamento"
+                        labelText="Forma de pagamento: *"
                       />
                     </GridItem>
                     <GridItem
@@ -258,7 +258,7 @@ export const NewService: React.FC<ISetCreatedProps> = ({
                         options={qntInstallmentsOptions}
                         state={quantityInstallments}
                         onChange={setQuantityInstallments}
-                        labelText="Qnt. de parcelas"
+                        labelText="Qnt. de parcelas: *"
                       />
                     </GridItem>
                     <GridItem
@@ -268,12 +268,12 @@ export const NewService: React.FC<ISetCreatedProps> = ({
                         options={paymentDaysOptions}
                         state={paymentDay}
                         onChange={setPaymentDay}
-                        labelText="Dia de vencimento"
+                        labelText="Dia de vencimento: *"
                       />
                     </GridItem>
                     <GridItem>
                       <InputGroup flexDirection="column">
-                        <FormLabel color="#1a202c">Data do pagamento</FormLabel>
+                        <FormLabel color="#1a202c">Data do pagamento: *</FormLabel>
                         <Input
                           isRequired
                           bg="gray.100"
@@ -293,7 +293,7 @@ export const NewService: React.FC<ISetCreatedProps> = ({
                       }
                     >
                       <InputGroup flexDirection="column">
-                        <FormLabel color="#1a202c">Valor da parcela</FormLabel>
+                        <FormLabel color="#1a202c">Valor da parcela: *</FormLabel>
                         <Tag
                           colorScheme="yellow"
                         >
