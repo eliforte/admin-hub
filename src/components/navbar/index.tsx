@@ -22,7 +22,7 @@ export const Navbar: React.FC = () => {
         p="10px"
         border="1px solid #00000029"
         variant="link"
-        onClick={() => Navigate('/home/servicos')}
+        onClick={() => Navigate('/home/atendimentos')}
       >
         Atendimentos
       </Button>
@@ -30,7 +30,7 @@ export const Navbar: React.FC = () => {
         p="10px"
         border="1px solid #00000029"
         variant="link"
-        onClick={() => Navigate('/home/faturamento')}
+        onClick={() => Navigate('/home/faturamentos')}
       >
         Faturamentos
       </Button>

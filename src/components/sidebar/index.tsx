@@ -58,7 +58,7 @@ export const Sidebar: React.FC = () => {
               <Button
                 leftIcon={<Assessment />}
                 variant="link"
-                onClick={() => Navigate('/home/faturamento')}
+                onClick={() => Navigate('/home/faturamentos')}
               >
                 Faturamentos
               </Button>
