@@ -15,6 +15,7 @@ export const CustomHeading: React.FC = () => {
   return (
     <Flex
       backgroundColor="whitesmoke"
+      alignItems="center"
       justifyContent={['start', 'start', 'space-between']}
     >
       <Sidebar />
