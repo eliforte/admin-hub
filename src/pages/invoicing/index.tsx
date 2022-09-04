@@ -5,6 +5,7 @@ import {
   Grid,
   GridItem,
   useToast,
+  Heading,
 } from '@chakra-ui/react';
 import { AxiosError } from 'axios';
 import {
@@ -27,13 +28,13 @@ export const Invoicing: React.FC = () => {
   const [formOfPayment, setFormOfPayment] = React.useState('');
   const [data, setData] = React.useState<IDataProps[]>();
 
+  const user = JSON.parse(String(localStorage.getItem('user')));
   const toast = useToast();
 
   const getData = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const user = JSON.parse(String(localStorage.getItem('user')));
       const response = await api.get('/voucher', {
         headers: {
           Authorization: `Bearer ${user.token}`,
@@ -71,6 +72,19 @@ export const Invoicing: React.FC = () => {
   return (
     <Stack>
       <CustomHeading />
+      <Center
+        justifyContent="flex-end"
+      >
+        <Heading
+          color="whitesmoke"
+          as="h3"
+          size="md"
+          mt={5}
+          mr={5}
+        >
+          {`Olá, ${user.name}`}
+        </Heading>
+      </Center>
       <Center
         w="100%"
       >

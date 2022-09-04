@@ -10,11 +10,24 @@ import { List } from '../../components/list';
 
 export const Service: React.FC = () => {
   const [created, setCreated] = React.useState(false);
+  const user = JSON.parse(String(localStorage.getItem('user')));
 
   return (
     <Stack>
       <CustomHeading />
-      <Center justifyContent="flex-end">
+      <Center
+        flexDirection="column"
+        alignItems="flex-end"
+      >
+        <Heading
+          color="whitesmoke"
+          as="h3"
+          size="md"
+          mt={5}
+          mr={5}
+        >
+          {`Olá, ${user.name}`}
+        </Heading>
         <NewService setCreated={setCreated} />
       </Center>
       <Center
