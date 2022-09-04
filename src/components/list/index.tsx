@@ -24,7 +24,7 @@ export const List: React.FC<ICreatedProps> = ({ created }) => {
   const getItems = async () => {
     setLoading(true);
     try {
-      const user = JSON.parse(String(sessionStorage.getItem('user')));
+      const user = JSON.parse(String(localStorage.getItem('user')));
       const response = await api.get('/voucher', { headers: { Authorization: `Bearer ${user.token}` } });
       setData([...response.data]);
       setLoading(false);

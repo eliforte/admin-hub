@@ -33,7 +33,7 @@ export const Invoicing: React.FC = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const user = JSON.parse(String(sessionStorage.getItem('user')));
+      const user = JSON.parse(String(localStorage.getItem('user')));
       const response = await api.get('/voucher', {
         headers: {
           Authorization: `Bearer ${user.token}`,
