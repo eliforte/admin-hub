@@ -7,6 +7,7 @@ import {
   DrawerCloseButton,
   DrawerHeader,
   DrawerBody,
+  DrawerFooter,
   useDisclosure,
   Flex,
 } from '@chakra-ui/react';
@@ -15,12 +16,18 @@ import {
   MenuSharp,
   List,
   Assessment,
+  LogoutSharp,
 } from '@mui/icons-material/';
 
 export const Sidebar: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef(null);
   const Navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.clear();
+    Navigate('/');
+  };
 
   return (
     <>
@@ -65,6 +72,15 @@ export const Sidebar: React.FC = () => {
               </Button>
             </Flex>
           </DrawerBody>
+          <DrawerFooter justifyContent="flex-start">
+            <Button
+              leftIcon={<LogoutSharp />}
+              variant="link"
+              onClick={() => logout()}
+            >
+              Sair
+            </Button>
+          </DrawerFooter>
         </DrawerContent>
       </Drawer>
     </>
