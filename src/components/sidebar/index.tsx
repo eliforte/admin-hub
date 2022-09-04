@@ -12,10 +12,9 @@ import {
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import {
-  Menu,
+  MenuSharp,
   List,
   Assessment,
-  Settings,
 } from '@mui/icons-material/';
 
 export const Sidebar: React.FC = () => {
@@ -27,9 +26,11 @@ export const Sidebar: React.FC = () => {
     <>
       <Button
         display={['block', 'block', 'none']}
-        leftIcon={<Menu />}
+        leftIcon={<MenuSharp sx={{ color: 'black' }} />}
         colorScheme="teal"
         onClick={onOpen}
+        p={0}
+        ml={2}
         backgroundColor="transparent"
       />
       <Drawer
@@ -53,7 +54,7 @@ export const Sidebar: React.FC = () => {
                 variant="link"
                 onClick={() => Navigate('/home/atendimentos')}
               >
-                atendimentos
+                Atendimentos
               </Button>
               <Button
                 leftIcon={<Assessment />}
@@ -61,13 +62,6 @@ export const Sidebar: React.FC = () => {
                 onClick={() => Navigate('/home/faturamentos')}
               >
                 Faturamentos
-              </Button>
-              <Button
-                leftIcon={<Settings />}
-                variant="link"
-                onClick={() => Navigate('/home/detalhes')}
-              >
-                Detalhes
               </Button>
             </Flex>
           </DrawerBody>

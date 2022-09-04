@@ -34,14 +34,6 @@ export const Navbar: React.FC = () => {
       >
         Faturamentos
       </Button>
-      <Button
-        p="10px"
-        border="1px solid #00000029"
-        variant="link"
-        onClick={() => Navigate('/home/detalhes')}
-      >
-        Detalhes
-      </Button>
     </Flex>
   );
 };
