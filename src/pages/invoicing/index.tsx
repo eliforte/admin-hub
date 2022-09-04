@@ -5,9 +5,9 @@ import {
   Grid,
   GridItem,
   useToast,
-  Heading,
 } from '@chakra-ui/react';
 import { AxiosError } from 'axios';
+import { useNavigate } from 'react-router-dom';
 import {
   monthsOptions,
   formOfPaymentOptions,
@@ -17,6 +17,7 @@ import {
 import { CustomHeading } from '../../components/customHeading';
 import { CustomSelect } from '../../components/customSelect';
 import { SubmitButton } from '../../components/submitButton';
+import { HelloMessage } from '../../components/helloMessage';
 import { IDataProps } from '../../interfaces';
 import api from '../../services/api';
 
@@ -28,6 +29,7 @@ export const Invoicing: React.FC = () => {
   const [formOfPayment, setFormOfPayment] = React.useState('');
   const [data, setData] = React.useState<IDataProps[]>();
 
+  const Navigate = useNavigate();
   const user = JSON.parse(String(localStorage.getItem('user')));
   const toast = useToast();
 
@@ -44,6 +46,20 @@ export const Invoicing: React.FC = () => {
       setLoading(false);
     } catch (err) {
       if (err instanceof AxiosError) {
+        if (err.response?.status === 500) {
+          setLoading(false);
+          toast({
+            position: 'top',
+            title: 'Ops!',
+            description: 'Erro ao carregar o seus dados. Faça o login novamente.',
+            status: 'warning',
+            duration: 3000,
+            isClosable: true,
+          });
+          localStorage.clear();
+          return Navigate('/');
+        }
+
         setLoading(false);
         return toast({
           position: 'top',
@@ -72,19 +88,7 @@ export const Invoicing: React.FC = () => {
   return (
     <Stack>
       <CustomHeading />
-      <Center
-        justifyContent="flex-end"
-      >
-        <Heading
-          color="whitesmoke"
-          as="h3"
-          size="md"
-          mt={5}
-          mr={5}
-        >
-          {`Olá, ${user.name}`}
-        </Heading>
-      </Center>
+      <HelloMessage name={user.name} />
       <Center
         w="100%"
       >

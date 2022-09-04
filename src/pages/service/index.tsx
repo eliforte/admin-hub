@@ -6,6 +6,7 @@ import {
 } from '@chakra-ui/react';
 import { CustomHeading } from '../../components/customHeading';
 import { NewService } from '../../components/newService';
+import { HelloMessage } from '../../components/helloMessage';
 import { List } from '../../components/list';
 
 export const Service: React.FC = () => {
@@ -19,15 +20,7 @@ export const Service: React.FC = () => {
         flexDirection="column"
         alignItems="flex-end"
       >
-        <Heading
-          color="whitesmoke"
-          as="h3"
-          size="md"
-          mt={5}
-          mr={5}
-        >
-          {`Olá, ${user.name}`}
-        </Heading>
+        <HelloMessage name={user.name} />
         <NewService setCreated={setCreated} />
       </Center>
       <Center

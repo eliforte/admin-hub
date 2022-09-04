@@ -25,7 +25,7 @@ export const CustomHeading: React.FC = () => {
         <Button
           bg="transparent"
           _hover={{ bg: 'transparent' }}
-          onClick={() => Navigate('/home/servicos')}
+          onClick={() => Navigate('/home/atendimentos')}
         >
           <Heading color="#718096">Admin Hub</Heading>
         </Button>

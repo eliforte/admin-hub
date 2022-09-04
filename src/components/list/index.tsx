@@ -5,7 +5,9 @@ import {
   Center,
   Box,
   Heading,
+  Link,
 } from '@chakra-ui/react';
+import { useNavigate, Link as LinkRouter } from 'react-router-dom';
 import { Loading } from '../loading';
 import { ItemOfList } from '../itemOfList';
 import { EmptyList } from '../emptyList';
@@ -21,6 +23,8 @@ export const List: React.FC<ICreatedProps> = ({ created }) => {
   const [loading, setLoading] = React.useState(false);
   const toast = useToast();
 
+  const Navigate = useNavigate();
+
   const getItems = async () => {
     setLoading(true);
     try {
@@ -30,6 +34,19 @@ export const List: React.FC<ICreatedProps> = ({ created }) => {
       setLoading(false);
     } catch (err) {
       if (err instanceof AxiosError) {
+        if (err.response?.status === 500) {
+          setLoading(false);
+          toast({
+            position: 'top',
+            title: 'Ops!',
+            description: 'Erro ao carregar o seus dados. Faça o login novamente.',
+            status: 'warning',
+            duration: 3000,
+            isClosable: true,
+          });
+          localStorage.clear();
+          return Navigate('/');
+        }
         setLoading(false);
         return toast({
           position: 'top',
@@ -71,7 +88,7 @@ export const List: React.FC<ICreatedProps> = ({ created }) => {
         !data?.length ? <EmptyList />
           : data.map((service, index) => (
             <Box
-              maxW="900px"
+              maxW="1100px"
               backgroundColor="whiteAlpha.800"
               justifyContent="center"
               flexDirection="column"
@@ -79,18 +96,23 @@ export const List: React.FC<ICreatedProps> = ({ created }) => {
               p={5}
               borderRadius={5}
             >
-              <Heading
-                as="h3"
-                size="md"
-                maxW="50px"
-                mb={2}
-                borderRadius={5}
-                backgroundColor="whitesmoke"
-                p={1}
-                color="#213b62"
-              >
-                { `# ${index + 1}`}
-              </Heading>
+              <Center justifyContent="space-between">
+                <Heading
+                  as="h3"
+                  size="md"
+                  maxW="50px"
+                  mb={2}
+                  borderRadius={5}
+                  backgroundColor="whitesmoke"
+                  p={1}
+                  color="#213b62"
+                >
+                  { `# ${index + 1}`}
+                </Heading>
+                <Link as={LinkRouter} to={`/home/detalhes/${service._id}`}>
+                  ver mais detalhes
+                </Link>
+              </Center>
               <ItemOfList key={service._id} {...service} />
             </Box>
           ))
