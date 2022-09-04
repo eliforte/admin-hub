@@ -26,7 +26,7 @@ export const Login: React.FC = () => {
     setLoading(true);
     try {
       const response = await api.post('/login', { ...loginInfo });
-      sessionStorage.setItem('user', JSON.stringify(response.data));
+      localStorage.setItem('user', JSON.stringify(response.data));
       setLoading(false);
       Navigate('/home/atendimentos');
     } catch (err) {
@@ -53,6 +53,14 @@ export const Login: React.FC = () => {
       console.log(err);
     }
   };
+
+  React.useEffect(() => {
+    if (localStorage.getItem('user')) {
+      const token = localStorage.getItem('user');
+      console.log(token);
+      Navigate('/home/atendimentos');
+    }
+  }, []);
 
   return (
     <Flex
