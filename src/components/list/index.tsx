@@ -95,6 +95,7 @@ export const List: React.FC<ICreatedProps> = ({ created }) => {
               border="1px solid #00000029"
               p={5}
               borderRadius={5}
+              key={service._id}
             >
               <Center justifyContent="space-between">
                 <Heading
@@ -113,7 +114,7 @@ export const List: React.FC<ICreatedProps> = ({ created }) => {
                   ver mais detalhes
                 </Link>
               </Center>
-              <ItemOfList key={service._id} {...service} />
+              <ItemOfList {...service} />
             </Box>
           ))
       }

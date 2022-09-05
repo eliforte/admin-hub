@@ -18,6 +18,7 @@ export const HelloMessage: React.FC<IMessageProps> = ({ name }) => (
       size="md"
       mt={5}
       mr={5}
+      mb={10}
     >
       {`Olá, ${name}`}
     </Heading>
