@@ -61,6 +61,7 @@
       "import/prefer-default-export": "off",
       "no-useless-escape": "off",
       "no-unused-expressions": "off",
-      "camelcase": "off"
+      "camelcase": "off",
+      "array-callback-return": "off"
   }
 }

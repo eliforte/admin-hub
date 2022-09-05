@@ -56,8 +56,6 @@ export const Login: React.FC = () => {
 
   React.useEffect(() => {
     if (localStorage.getItem('user')) {
-      const token = localStorage.getItem('user');
-      console.log(token);
       Navigate('/home/atendimentos');
     }
   }, []);

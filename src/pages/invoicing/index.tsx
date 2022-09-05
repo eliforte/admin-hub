@@ -58,26 +58,6 @@ export const Invoicing: React.FC = () => {
   const user = JSON.parse(String(localStorage.getItem('user')));
   const toast = useToast();
 
-  const filterInstallments = (voucher: IDataProps) => {
-    if (
-      voucher.form_of_payment === 'Parcelamento'
-      && voucher.quantity_installments >= voucher.quantity_installments_paid
-    ) {
-      setTotalQuantityOfInstallments(totalQuantityOfInstallments + 1);
-      setTotalAmoutOfInstallments(totalAmountOfInstallments + voucher.installment_value);
-    }
-  };
-
-  const filterInCash = (voucher: IDataProps) => {
-    if (
-      voucher.form_of_payment !== 'Parcelamento'
-      && voucher.total > 0
-    ) {
-      setTotalQuantityInCash(totalQuantityInCash + 1);
-      setTotalAmoutInCash(totalAmountInCash + voucher.total);
-    }
-  };
-
   const getData = async (e: React.FormEvent<HTMLFormElement>) => {
     setTotalQuantityOfInstallments(0);
     setTotalAmoutOfInstallments(0);
@@ -91,7 +71,32 @@ export const Invoicing: React.FC = () => {
           Authorization: `Bearer ${user.token}`,
         },
       });
-      setData([...response.data]);
+      const isInstallments = response?.data?.filter((voucher: IDataProps) => (
+        voucher.form_of_payment === 'Parcelamento'
+        && voucher.quantity_installments >= voucher.quantity_installments_paid
+      ));
+
+      const totalInstallmentsValue = isInstallments.map(
+        (voucher: IDataProps) => (voucher.installment_value),
+      ).reduce((previousValue: number, currentValue: number) => (
+        currentValue + previousValue
+      ), 0);
+
+      const isInCash = response?.data?.filter((voucher: IDataProps) => (
+        voucher.form_of_payment !== 'Parcelamento'
+        && voucher.total > 0
+      ));
+
+      const totalInCash = isInCash.map((voucher: IDataProps) => voucher.total)
+        .reduce((previousValue: number, currentValue: number) => (
+          previousValue + currentValue
+        ), 0);
+
+      setTotalQuantityInCash(isInCash.length);
+      setTotalQuantityOfInstallments(isInstallments.length);
+      setTotalAmoutOfInstallments(totalInstallmentsValue);
+      setTotalAmoutInCash(totalInCash);
+      setData([...isInstallments, ...isInCash]);
       setLoading(false);
     } catch (err) {
       if (err instanceof AxiosError) {
@@ -132,10 +137,7 @@ export const Invoicing: React.FC = () => {
     }
   };
 
-  React.useEffect(() => {
-    data?.filter(filterInstallments);
-    data?.filter(filterInCash);
-  }, [data]);
+  React.useEffect(() => {}, [data]);
 
   return (
     <Stack>
