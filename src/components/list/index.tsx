@@ -110,7 +110,7 @@ export const List: React.FC<ICreatedProps> = ({ created }) => {
                 >
                   { `# ${index + 1}`}
                 </Heading>
-                <Link as={LinkRouter} to={`/home/detalhes/${service._id}`}>
+                <Link color="gray.500" as={LinkRouter} to={`/home/detalhes/${service._id}`}>
                   ver mais detalhes
                 </Link>
               </Center>
