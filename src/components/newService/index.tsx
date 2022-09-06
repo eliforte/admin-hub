@@ -56,6 +56,7 @@ export const NewService: React.FC<ISetCreatedProps> = ({
   const toast = useToast();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    formOfPayment === 'À vista' && setQuantityInstallments(0);
     e.preventDefault();
     setLoading(true);
     try {
