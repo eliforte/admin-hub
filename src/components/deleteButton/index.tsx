@@ -15,7 +15,6 @@ import {
 } from '@chakra-ui/react';
 import { AxiosError } from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
-import { DeleteForever } from '@mui/icons-material';
 import api from '../../services/api';
 
 export const DeleteButton: React.FC = () => {
@@ -70,13 +69,10 @@ export const DeleteButton: React.FC = () => {
   return (
     <Center>
       <Button
-        bgColor="transparent"
-        _hover={{ backgroundColor: 'transparent' }}
+        colorScheme="red"
         onClick={onOpen}
-        p={0}
-        m={0}
       >
-        <DeleteForever sx={{ color: '#e53e3e' }} />
+        Excluir
       </Button>
       <AlertDialog
         isOpen={isOpen}
