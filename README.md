@@ -2,7 +2,7 @@
 
 ## **Deploy**
 
-Todas as requisições devem ser feitas para o link [https://admin-hub.vercel.app/](https://admin-hub.vercel.app/). A aplicação está hospedada no Vercel.
+Todas as requisições devem ser feitas para o link. A aplicação está hospedada no Vercel.
 
 ## **Sobre**
   Aplicação desenvolvida para fazer o controle financeiro e conseguir visualizar o faturamento mensal ou anual de dentistas.
