@@ -60,7 +60,7 @@ export const NewService: React.FC<ISetCreatedProps> = ({
     e.preventDefault();
     setLoading(true);
     try {
-      const user = JSON.parse(String(sessionStorage.getItem('user')));
+      const user = JSON.parse(String(localStorage.getItem('user')));
       await api.post('/voucher', {
         ...service,
         payment_method: paymentMethod,

@@ -17,6 +17,8 @@ interface ITotalPanel {
   totalQuantityInCash: number;
   totalAmountOfInstallments: number;
   totalAmountInCash: number;
+  totalLatePayment: number;
+  quantityTotalLatePayment: number;
   loading: boolean;
 }
 
@@ -28,6 +30,8 @@ export const TotalPanel: React.FC<ITotalPanel> = ({
   totalQuantityInCash,
   totalAmountOfInstallments,
   totalAmountInCash,
+  totalLatePayment,
+  quantityTotalLatePayment,
   loading,
 }) => {
   React.useEffect(() => {
@@ -52,7 +56,7 @@ export const TotalPanel: React.FC<ITotalPanel> = ({
           {`Resultado do ${periodFormat}:`}
         </Heading>
         <Grid
-          templateColumns={['repeat(1, 1fr)', 'repeat(2, 1fr)', 'repeat(3, 1fr)']}
+          templateColumns={['repeat(1, 1fr)', 'repeat(1, 1fr)', 'repeat(3, 1fr)']}
           gap={4}
           justifyItems="flex-start"
         >
@@ -119,16 +123,9 @@ export const TotalPanel: React.FC<ITotalPanel> = ({
                 as="h4"
                 size="sm"
               >
-                Receita de parcelamentos:
+                Qnt. à vista:
               </Heading>
-              <Text
-                p="0 10px"
-                borderRadius={2}
-                backgroundColor="blue.200"
-                color="gray.700"
-              >
-                {`R$: ${totalAmountOfInstallments}`}
-              </Text>
+              <Text>{totalQuantityInCash}</Text>
             </Center>
           </GridItem>
           <GridItem
@@ -143,9 +140,33 @@ export const TotalPanel: React.FC<ITotalPanel> = ({
                 as="h4"
                 size="sm"
               >
-                Qnt. à vista:
+                Qnt. de pagamentos atrasados:
               </Heading>
-              <Text>{totalQuantityInCash}</Text>
+              <Text>{quantityTotalLatePayment}</Text>
+            </Center>
+          </GridItem>
+          <GridItem
+            p={2}
+          >
+            <Center
+              alignItems="stretch"
+              gap={5}
+            >
+              <Heading
+                color="#213b62"
+                as="h4"
+                size="sm"
+              >
+                Receita de parcelamentos:
+              </Heading>
+              <Text
+                p="0 10px"
+                borderRadius={2}
+                backgroundColor="blue.200"
+                color="gray.700"
+              >
+                {`R$: ${String((totalAmountOfInstallments).toFixed(2)).replace('.', ',')}`}
+              </Text>
             </Center>
           </GridItem>
           <GridItem
@@ -168,7 +189,31 @@ export const TotalPanel: React.FC<ITotalPanel> = ({
                 backgroundColor="green.200"
                 color="gray.700"
               >
-                {`R$: ${totalAmountInCash}`}
+                {`R$: ${String(totalAmountInCash).replace('.', ',')}`}
+              </Text>
+            </Center>
+          </GridItem>
+          <GridItem
+            p={2}
+          >
+            <Center
+              alignItems="stretch"
+              gap={5}
+            >
+              <Heading
+                color="#213b62"
+                as="h4"
+                size="sm"
+              >
+                Receita de pagamentos atrasados:
+              </Heading>
+              <Text
+                p="0 10px"
+                borderRadius={2}
+                backgroundColor="red.600"
+                color="whitesmoke"
+              >
+                {`R$: ${String(totalLatePayment).replace('.', ',')}` }
               </Text>
             </Center>
           </GridItem>
@@ -192,7 +237,7 @@ export const TotalPanel: React.FC<ITotalPanel> = ({
                 backgroundColor="green.600"
                 color="whitesmoke"
               >
-                {`R$: ${totalAmountInCash + totalAmountOfInstallments}` }
+                {`R$: ${String(((totalAmountInCash + totalAmountOfInstallments) - quantityTotalLatePayment).toFixed(2)).replace('.', ',')}` }
               </Text>
             </Center>
           </GridItem>

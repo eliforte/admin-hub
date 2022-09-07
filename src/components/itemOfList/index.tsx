@@ -104,7 +104,11 @@ export const ItemOfList: React.FC<IDataProps> = (props) => {
           backgroundColor={status}
         >
           {
-            `R$ ${form_of_payment === 'Parcelamento' ? installment_value : total}`
+            `R$ ${
+              form_of_payment === 'Parcelamento'
+                ? String(installment_value).replace('.', ',')
+                : String(total).replace('.', ',')
+            }`
           }
         </Text>
       </GridItem>
