@@ -33,3 +33,8 @@ export interface IService {
   last_payment: string | null;
   next_payment: string | null;
 }
+
+export interface IVoucherFilteredStatus {
+  late: IDataProps[];
+  paid: IDataProps[];
+}

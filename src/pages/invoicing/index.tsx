@@ -14,6 +14,12 @@ import {
   formOfPaymentOptions,
   paymentMethodOptions,
   typeFilterOptions,
+  isInstallments,
+  totalInstallmentsValue,
+  isInCash,
+  totalInCash,
+  calculateStatusPayment,
+  calculateTotalLatePayment,
 } from './utils';
 import { CustomHeading } from '../../components/customHeading';
 import { CustomSelect } from '../../components/customSelect';
@@ -51,6 +57,8 @@ export const Invoicing: React.FC = () => {
   const [data, setData] = React.useState<IDataProps[]>([initalStateService]);
   const [totalQuantityOfInstallments, setTotalQuantityOfInstallments] = React.useState(0);
   const [totalQuantityInCash, setTotalQuantityInCash] = React.useState(0);
+  const [totalLatePayment, setTotalLatePayment] = React.useState(0);
+  const [quantityTotalLatePayment, setQuantityTotalLatePayment] = React.useState(0);
   const [totalAmountOfInstallments, setTotalAmoutOfInstallments] = React.useState(0);
   const [totalAmountInCash, setTotalAmoutInCash] = React.useState(0);
 
@@ -71,32 +79,20 @@ export const Invoicing: React.FC = () => {
           Authorization: `Bearer ${user.token}`,
         },
       });
-      const isInstallments = response?.data?.filter((voucher: IDataProps) => (
-        voucher.form_of_payment === 'Parcelamento'
-        && voucher.quantity_installments >= voucher.quantity_installments_paid
-      ));
+      const separatedByStatus = calculateStatusPayment(response);
+      const valueTotalLatePayments = calculateTotalLatePayment(separatedByStatus.late);
+      const onlyInstallments = isInstallments(separatedByStatus.paid);
+      const valueTotalInstallments = totalInstallmentsValue(onlyInstallments);
+      const onlyInCash = isInCash(separatedByStatus.paid);
+      const valueTotalInCash = totalInCash(onlyInCash);
 
-      const totalInstallmentsValue = isInstallments.map(
-        (voucher: IDataProps) => (voucher.installment_value),
-      ).reduce((previousValue: number, currentValue: number) => (
-        currentValue + previousValue
-      ), 0);
-
-      const isInCash = response?.data?.filter((voucher: IDataProps) => (
-        voucher.form_of_payment !== 'Parcelamento'
-        && voucher.total > 0
-      ));
-
-      const totalInCash = isInCash.map((voucher: IDataProps) => voucher.total)
-        .reduce((previousValue: number, currentValue: number) => (
-          previousValue + currentValue
-        ), 0);
-
-      setTotalQuantityInCash(isInCash.length);
-      setTotalQuantityOfInstallments(isInstallments.length);
-      setTotalAmoutOfInstallments(totalInstallmentsValue);
-      setTotalAmoutInCash(totalInCash);
-      setData([...isInstallments, ...isInCash]);
+      setTotalLatePayment(valueTotalLatePayments);
+      setQuantityTotalLatePayment(separatedByStatus.late.length);
+      setTotalQuantityInCash(onlyInCash.length);
+      setTotalQuantityOfInstallments(onlyInstallments.length);
+      setTotalAmoutOfInstallments(valueTotalInstallments);
+      setTotalAmoutInCash(valueTotalInCash);
+      setData([...onlyInstallments, ...onlyInCash]);
       setLoading(false);
     } catch (err) {
       if (err instanceof AxiosError) {
@@ -219,6 +215,8 @@ export const Invoicing: React.FC = () => {
           totalQuantityInCash={totalQuantityInCash}
           totalAmountOfInstallments={totalAmountOfInstallments}
           totalAmountInCash={totalAmountInCash}
+          totalLatePayment={totalLatePayment}
+          quantityTotalLatePayment={quantityTotalLatePayment}
         />
       </Center>
     </Stack>

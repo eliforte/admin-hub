@@ -7,13 +7,16 @@ import {
   Text,
   Box,
   useToast,
+  Link,
 } from '@chakra-ui/react';
 import { AxiosError } from 'axios';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link as LinkRouter } from 'react-router-dom';
+import { ArrowBackIcon } from '@chakra-ui/icons';
 import { CustomHeading } from '../../components/customHeading';
 import { Loading } from '../../components/loading';
 import { HelloMessage } from '../../components/helloMessage';
 import { DeleteButton } from '../../components/deleteButton';
+import { NewPayment } from '../../components/newPayment';
 import { calculateStatus } from '../../components/itemOfList/utils';
 import api from '../../services/api';
 
@@ -102,20 +105,30 @@ export const Details: React.FC = () => {
     <Box>
       <CustomHeading />
       <HelloMessage name={user.name} />
-      <Center color="whitesmoke">
-        <Heading>Detalhes do atendimento</Heading>
+      <Center
+        flexWrap="wrap"
+        color="whitesmoke"
+        justifyContent="space-between"
+      >
+        <Heading ml={5}>Detalhes do atendimento</Heading>
+        <Center
+          display={details.form_of_payment !== 'Parcelamento' ? 'none' : 'flex'}
+        >
+          <NewPayment
+            installmentValue={details?.installment_value}
+            loading={loading}
+            setLoading={setLoading}
+          />
+        </Center>
       </Center>
       <Center
         m={5}
         flexDirection="column"
         backgroundColor="whitesmoke"
         p={5}
+        maxW="100%"
         borderRadius={3}
-        alignItems="flex-end"
       >
-        <Center justifyContent="flex-end">
-          <DeleteButton />
-        </Center>
         {
           loading ? <Loading />
             : (
@@ -259,7 +272,7 @@ export const Details: React.FC = () => {
                     color="whitesmoke"
                     backgroundColor="#DAA520"
                   >
-                    { `R$ ${details?.installment_value}` }
+                    { `R$ ${String(details?.installment_value).replace('.', ',')}` }
                   </Text>
                 </GridItem>
                 <GridItem
@@ -279,13 +292,29 @@ export const Details: React.FC = () => {
                     backgroundColor={status}
                   >
                     {
-                      `R$ ${details?.total}`
+                      `R$ ${String(details?.total).replace('.', ',')}`
                     }
                   </Text>
                 </GridItem>
               </Grid>
             )
         }
+        <Center
+          w="100%"
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <Link
+            ml={5}
+            color="gray.500"
+            as={LinkRouter}
+            to="/home/atendimentos"
+          >
+            <ArrowBackIcon mr={2} />
+            Voltar
+          </Link>
+          <DeleteButton />
+        </Center>
       </Center>
     </Box>
   );
