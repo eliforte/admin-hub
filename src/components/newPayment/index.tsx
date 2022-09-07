@@ -95,7 +95,7 @@ export const NewPayment: React.FC<IUpdatePayment> = ({
       <Button
         color="#1a202c"
         onClick={onOpen}
-        mr={5}
+        m="30px 20px"
       >
         Adicionar novo pagamento
       </Button>
