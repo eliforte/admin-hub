@@ -270,7 +270,7 @@ export const Details: React.FC = () => {
                     p="2px 0 2px 12px"
                     mt={5}
                     color="whitesmoke"
-                    backgroundColor="#DAA520"
+                    backgroundColor={status}
                   >
                     { `R$ ${String(details?.installment_value).replace('.', ',')}` }
                   </Text>
@@ -289,7 +289,7 @@ export const Details: React.FC = () => {
                     p="2px 0 2px 12px"
                     mt={5}
                     color="whitesmoke"
-                    backgroundColor={status}
+                    backgroundColor="green.400"
                   >
                     {
                       `R$ ${String(details?.total).replace('.', ',')}`
