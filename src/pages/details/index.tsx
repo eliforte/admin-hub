@@ -220,7 +220,7 @@ export const Details: React.FC = () => {
                   border="1px solid #00000029"
                 >
                   <Heading color="#213b62" as="h4" size="sm">Último pagamento:</Heading>
-                  <Text color="gray.500" mt={5}>{ new Date(String(details?.last_payment)).toLocaleDateString('pt-BR') }</Text>
+                  <Text color="gray.500" mt={5}>{ details?.last_payment }</Text>
                 </GridItem>
                 <GridItem
                   w="100%"
@@ -231,7 +231,7 @@ export const Details: React.FC = () => {
                   display={details?.form_of_payment === 'Parcelamento' ? 'block' : 'none'}
                 >
                   <Heading color="#213b62" as="h4" size="sm">Próximo pagamento:</Heading>
-                  <Text color="gray.500" mt={5}>{ new Date(String(details?.next_payment)).toLocaleDateString('pt-BR') }</Text>
+                  <Text color="gray.500" mt={5}>{ details?.next_payment }</Text>
                 </GridItem>
                 <GridItem
                   w="100%"

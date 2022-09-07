@@ -88,7 +88,7 @@ export const List: React.FC<ICreatedProps> = ({ created }) => {
         !data?.length ? <EmptyList />
           : data.map((service, index) => (
             <Box
-              maxW="1100px"
+              w={['95%', '95%', '90%', '1100px']}
               backgroundColor="whiteAlpha.800"
               justifyContent="center"
               flexDirection="column"
