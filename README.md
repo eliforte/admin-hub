@@ -12,6 +12,25 @@ Todas as requisições devem ser feitas para o link [https://admin-hub-react.her
 
 ***
 
+## **Iniciando projeto**
+
+Primeiro use esse comando no seu terminal para fazer um clone do repositório no seu computador:
+
+```bash
+git clone git@github.com:eliforte/admin-hub.git
+```
+Use o comando abaixo para entrar na pasta principal do projeto:
+
+```bash
+cd admin-hub
+```
+
+Na pasta raiz do projeto use:
+
+```bash
+yarn
+```
+
 ## **Scripts**
 
 - <code>yarn</code> => Para instalar todas as dependências do projeto.
