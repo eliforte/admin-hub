@@ -2,11 +2,11 @@
 
 ## **Deploy**
 
-A aplicação está disponível no link [https://admin-hub-react.herokuapp.com/](https://admin-hub-react.herokuapp.com/) e hospedada no Heroku.
+A aplicação está disponível no link [https://admin-hub-react.herokuapp.com](https://admin-hub-react.herokuapp.com/) e hospedada no Heroku.
 
 ## **Sobre**
   Aplicação desenvolvida para fazer o controle financeiro e conseguir visualizar o faturamento mensal ou anual de dentistas. Onde pode-se registrar um novo atendimento, visualizar os detalhes, excluir, adicionar um novo pagamento de serviços parcelados.
-  
+
 ## **Contatos**
 <a targer="_blank" href="https://www.linkedin.com/in/elias-forte/"><img src="https://img.icons8.com/fluency/48/000000/linkedin.png"/></a>
 
