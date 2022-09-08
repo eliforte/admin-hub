@@ -18,12 +18,16 @@ export const ItemOfList: React.FC<IDataProps> = (props) => {
     last_payment,
     next_payment,
     installment_value,
+    quantity_installments_paid,
+    quantity_installments,
   } = props;
 
   const status = calculateStatus(
     String(next_payment),
     form_of_payment,
     String(last_payment),
+    quantity_installments_paid,
+    quantity_installments,
   );
 
   return (

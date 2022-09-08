@@ -47,6 +47,8 @@ export const Details: React.FC = () => {
     String(details.next_payment),
     details.form_of_payment,
     String(details.last_payment),
+    details.quantity_installments_paid,
+    details.quantity_installments,
   );
   const toast = useToast();
   const { id } = useParams();
@@ -228,7 +230,12 @@ export const Details: React.FC = () => {
                   p={2}
                   h="100%"
                   border="1px solid #00000029"
-                  display={details?.form_of_payment === 'Parcelamento' ? 'block' : 'none'}
+                  display={
+                    details?.form_of_payment === 'Parcelamento'
+                    && details?.next_payment !== null
+                      ? 'block'
+                      : 'none'
+                  }
                 >
                   <Heading color="#213b62" as="h4" size="sm">Próximo pagamento:</Heading>
                   <Text color="gray.500" mt={5}>{ details?.next_payment }</Text>
