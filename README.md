@@ -12,6 +12,10 @@ A aplicação está disponível no link [https://admin-hub-react.herokuapp.com](
 
 ***
 
+## **Layout da aplicação**
+
+<img src="https://github.com/eliforte/admin-hub/blob/main/public/Screenshot_2.png" alt="imagem ilustrativa da aplicação" />
+
 ## **Iniciando projeto**
 
 Primeiro use esse comando no seu terminal para fazer um clone do repositório no seu computador:
