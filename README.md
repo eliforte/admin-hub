@@ -1,4 +1,4 @@
-# Admin Hub API
+# Admin Hub
 
 ## **Deploy**
 
